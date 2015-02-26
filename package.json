@@ -1,0 +1,24 @@
+{
+  "name": "cdn-finder",
+  "version": "1.0.0",
+  "description": "CDN Finder tool built using Node",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vigneshshanmugam/cdn-finder.git"
+  },
+  "keywords": [
+    "CDN Finder",
+    "CDN",
+    "Analyse CDN"
+  ],
+  "author": "Vignesh Shanmugam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vigneshshanmugam/cdn-finder/issues"
+  },
+  "homepage": "https://github.com/vigneshshanmugam/cdn-finder"
+}
