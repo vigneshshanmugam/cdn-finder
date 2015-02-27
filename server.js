@@ -4,28 +4,30 @@ var koa = require('koa'),
 	route = require('koa-route'),
 	staticDir = require('koa-static'),
 	request = require('co-request'),
-	port = process.env.PORT || 3003;
+	port = process.env.PORT || 3000,
+	dns = require('dns');
 
 app.use(logger());
-app.use(route.get('/cdnfinder/:name', findCDN))
+
+app.use(route.get('/findcdn', findCDN))
 app.use(staticDir('./'))
 
 app.listen(port, function() {
 	console.log("Koa server listening on port %s", port);
 });
 
-function *findCDN(domain) {
+function *findCDN() {
+	domain = this.request.query.name;
+	console.log(domain);
 	if(domain){
-
-		
+		var resp = yield new Promise(function(resolve, reject) {
+			dns.resolve(domain, function(err, address) {
+				if(err) reject(err);
+				else resolve(address);
+			})
+		});
+		console.log(resp);
+		this.body = resp;
 	}
-	// switch(domain) {
-	// 	case "location":
-	// 		var resp = yield request('http://api.open-notify.org/iss-now.json');
-	// 		this.body = resp.body;
-	// 		break;
-	// 	default:
-	// 		console.log("Unknown");
-	// 		this.body = "[]";
-	// }
+
 }

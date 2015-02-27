@@ -1,0 +1,17 @@
+*{
+	box-sizing: border-box;
+}
+
+body{
+	width :1000px;
+	position: relative;
+	margin: 0 auto;
+	height: 100%;
+	padding: 0;
+}
+
+.layout .result{
+	margin-top : 20px;
+	border: 1px solid #ccc;
+	min-height: 100px;
+}
