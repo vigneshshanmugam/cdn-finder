@@ -1,6 +1,8 @@
 # cdn-finder
 Better CDN Finder tool. 
 
+[![wercker status](https://app.wercker.com/status/51ba96e9084ceeda84f5c11575bc67e5/m "wercker status")](https://app.wercker.com/project/bykey/51ba96e9084ceeda84f5c11575bc67e5)
+
 
 
 
