@@ -1,5 +1,6 @@
 var getResult = require('./src/GetRequest'),
 	co = require('co'),
+	cname = require('./src/cname');
 	endpoint = "/findcdn?name=";
 
 function handleResponse(response){
@@ -9,8 +10,21 @@ function handleResponse(response){
 	}
 }
 
+function addEvent(elem, event, fn) {
+    if (elem.addEventListener) {
+        elem.addEventListener(event, fn, false);
+    } else {
+        elem.attachEvent("on" + event, function() {
+            return(fn.call(elem, window.event));   
+        });
+    }
+}
+
 var find = document.getElementById('#find');
-find.addEventListener('click' , function(e) {
+
+addEvent(find,'click',onResultsHandler);
+
+function onResultsHandler(e) {
 	co(function *() {
 		var name = endpoint + document.querySelectorAll('.domain')[0].value;
 		var resp = yield getResult(name);
@@ -19,4 +33,4 @@ find.addEventListener('click' , function(e) {
 	.catch(function(err){
 		console.log(err)
 	})
-});
+}

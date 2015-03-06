@@ -59,8 +59,21 @@
 		}
 	}
 
+	function addEvent(elem, event, fn) {
+		if (elem.addEventListener) {
+			elem.addEventListener(event, fn, false);
+		} else {
+			elem.attachEvent("on" + event, function () {
+				return fn.call(elem, window.event);
+			});
+		}
+	}
+
 	var find = document.getElementById("#find");
-	find.addEventListener("click", function (e) {
+
+	addEvent(find, "click", onResultsHandler);
+
+	function onResultsHandler(e) {
 		co(_regeneratorRuntime.mark(function callee$1$0() {
 			var name, resp;
 			return _regeneratorRuntime.wrap(function callee$1$0$(context$2$0) {
@@ -82,7 +95,7 @@
 		})).then(handleResponse)["catch"](function (err) {
 			console.log(err);
 		});
-	});
+	}
 
 /***/ },
 /* 1 */
