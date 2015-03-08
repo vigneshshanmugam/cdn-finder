@@ -11,7 +11,5 @@ CDN Finder written in JavaScript.
 * https://secure-reef-3496.herokuapp.com/
 
 ##TODO
-
-* Better Error Handling
-* Resolving Multiple CNAME records
-* Caching of CNAME
+ 
+ https://github.com/vigneshshanmugam/cdn-finder/issues/2 
