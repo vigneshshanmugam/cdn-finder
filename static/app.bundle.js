@@ -46,16 +46,25 @@
 
 	"use strict";
 
-	var _regeneratorRuntime = __webpack_require__(3)["default"];
+	var _regeneratorRuntime = __webpack_require__(4)["default"];
 
 	var getResult = __webpack_require__(1),
-	    co = __webpack_require__(2),
+	    co = __webpack_require__(3),
+	    findCDN = __webpack_require__(2),
 	    endpoint = "/findcdn?name=";
 
 	function handleResponse(response) {
-		var results = document.querySelectorAll(".result")[0];
+		var result = document.querySelectorAll(".result")[0],
+		    cdn;
+		console.log(response);
 		if (response) {
-			results.innerHTML = response;
+			cdn = findCDN(response);
+			if (cdn) {
+				result.innerHTML = cdn;
+			} else {
+				result.style.color = "red";
+				result.innerHTML = "Enter Valid Domain Address";
+			}
 		}
 	}
 
@@ -103,7 +112,7 @@
 
 	"use strict";
 
-	var _core = __webpack_require__(4)["default"];
+	var _core = __webpack_require__(5)["default"];
 
 	module.exports = function (url) {
 		return new _core.Promise(function (resolve, reject) {
@@ -125,6 +134,29 @@
 
 /***/ },
 /* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var CDN_PROVIDER = [[".clients.turbobytes.com", "Turbobytes"], [".akamai.net", "Akamai"], [".cdn.bitgravity.com", "Bitgravity"], [".akamaiedge.net", "Akamai"], [".llnwd.net", "Limelight"], [".systemcdn.net", "EdgeCast"], [".cdn77.net", "CDN77"], [".edgecastcdn.net", "EdgeCast"], [".hwcdn.net", "Highwinds"], [".panthercdn.com", "CDNetworks"], [".simplecdn.net", "Simple CDN"], [".instacontent.net", "Mirror Image"], [".mirror-image.net", "Mirror Image"], [".cap-mii.net", "Mirror Image"], [".footprint.net", "Level3"], [".ay1.b.yahoo.com", "Yahoo"], [".yimg.", "Yahoo"], [".google.", "Google"], ["googlesyndication.", "Google"], ["youtube.", "Google"], [".googleusercontent.com", "Google"], [".l.doubleclick.net", "Google"], [".internapcdn.net", "Internap"], [".cloudfront.net", "Amazon Cloudfront"], [".netdna-cdn.com", "MaxCDN"], [".netdna-ssl.com", "MaxCDN"], [".netdna.com", "MaxCDN"], [".cotcdn.net", "Cotendo"], [".cachefly.net", "Cachefly"], ["bo.lt", "BO.LT"], [".cloudflare.com", "Cloudflare"], [".afxcdn.net", "afxcdn.net"], [".lxdns.com", "ChinaNetCenter"], [".att-dsa.net", "AT&T"], [".vo.msecnd.net", "Windows Azure"], [".voxcdn.net", "Voxel"], [".bluehatnetwork.com", "Blue Hat Network"], [".swiftcdn1.com", "SwiftCDN"], [".rncdn1.com", "Reflected Networks"], [".cdngc.net", "CDNetworks"], [".gccdn.net", "CDNetworks"], [".gccdn.cn", "CDNetworks"], [".fastly.net", "Fastly"], [".gslb.taobao.com", "Taobao"], [".gslb.tbcache.com", "Alimama"], [".ccgslb.com", "ChinaCache"], [".ccgslb.net", "ChinaCache"], [".c3cache.net", "ChinaCache"], [".chinacache.net", "ChinaCache"], [".c3cdn.net", "ChinaCache"], [".akadns.net", "Akamai"], [".cdn.telefonica.com", "Telefonica"], [".azioncdn.net", "Azion"], [".anankecdn.com.br", "Ananke"], [".kxcdn.com", "KeyCDN"], [".lswcdn.net", "LeaseWeb CDN"]];
+
+	module.exports = function (cNames) {
+	  var cdnName = null,
+	      cname;
+	  if (cNames.length) {
+	    cname = cNames[0];
+	    for (var i = 0; i < CDN_PROVIDER.length; i++) {
+	      if (cname.indexOf(CDN_PROVIDER[i][0]) > 0) {
+	        cdnName = CDN_PROVIDER[i][1];
+	        break;
+	      }
+	    }
+	  }
+	  return cdnName;
+	};
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -363,7 +395,7 @@
 
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {// This method of obtaining a reference to the global object needs to be
@@ -377,7 +409,7 @@
 	var oldRuntime = hadRuntime && g.regeneratorRuntime;
 	delete g.regeneratorRuntime; // Force reevalutation of runtime.js.
 
-	module.exports = __webpack_require__(5);
+	module.exports = __webpack_require__(6);
 
 	if (hadRuntime) {
 	  // Restore the original runtime.
@@ -392,7 +424,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2738,12 +2770,12 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 
-	var _core = __webpack_require__(4)["default"];
+	var _core = __webpack_require__(5)["default"];
 
 	/**
 	 * Copyright (c) 2014, Facebook, Inc.

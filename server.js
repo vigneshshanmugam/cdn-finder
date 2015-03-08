@@ -3,7 +3,6 @@ var koa = require('koa'),
 	logger = require('koa-logger'),
 	route = require('koa-route'),
 	staticDir = require('koa-static'),
-	request = require('co-request'),
 	port = process.env.PORT || 3000,
 	dns = require('dns');
 
@@ -21,7 +20,7 @@ function *findCDN() {
 	console.log(domain);
 	if(domain){
 		var resp = yield new Promise(function(resolve, reject) {
-			dns.resolve(domain, function(err, address) {
+			dns.resolve(domain, 'CNAME', function(err, address) {
 				if(err) reject(err);
 				else resolve(address);
 			})

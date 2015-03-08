@@ -56,3 +56,17 @@ var CDN_PROVIDER  = [
   [".kxcdn.com", "KeyCDN"],
   [".lswcdn.net", "LeaseWeb CDN"]
 ]
+
+module.exports = function(cNames){
+	var cdnName = null, cname;
+	if(cNames.length){
+		cname = cNames[0];
+		for(var i=0; i < CDN_PROVIDER.length; i++){
+			if(cname.indexOf(CDN_PROVIDER[i][0]) > 0){
+				cdnName = CDN_PROVIDER[i][1];
+				break;
+			}
+		}
+	}
+	return cdnName;
+}

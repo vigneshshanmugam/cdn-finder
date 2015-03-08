@@ -1,12 +1,19 @@
 var getResult = require('./src/GetRequest'),
 	co = require('co'),
-	cname = require('./src/cname');
+	findCDN = require('./src/findCDN'),
 	endpoint = "/findcdn?name=";
 
 function handleResponse(response){
-	var results = document.querySelectorAll('.result')[0];
+	var result = document.querySelectorAll('.result')[0],cdn;
+	console.log(response);
 	if(response){
-		results.innerHTML = response;
+		cdn = findCDN(response);
+		if(cdn){
+			result.innerHTML = cdn;
+		}else{
+			result.style.color = 'red';
+			result.innerHTML = "Enter Valid Domain Address";
+		}
 	}
 }
 
@@ -31,6 +38,6 @@ function onResultsHandler(e) {
 		return resp;
 	}).then(handleResponse)
 	.catch(function(err){
-		console.log(err)
+        console.log(err)
 	})
 }
