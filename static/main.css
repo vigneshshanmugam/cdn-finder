@@ -14,9 +14,41 @@ body{
 	display: none;
 }
 
+header{
+	height: 100px;
+}
+
+header h2{
+	font-size: 25px;
+}
+
+header ul{
+	margin-left: 30px;
+}
+
+.layout{
+	font-size: 18px;
+}
+
+.layout .domain{
+	width: 200px;
+}
+
+.layout input{
+	margin: 0 5px;
+	font-size: 13px;
+
+}
+
+.layout #find{
+	width: 70px;
+	background-color: #ccc;
+	border-radius: 5px;
+  	font-weight: bold;
+}
+
 .layout .result{
 	margin-top : 20px;
-	color: green;
 }
 
 	

@@ -1,20 +1,25 @@
 var getResult = require('./src/GetRequest'),
 	co = require('co'),
 	findCDN = require('./src/findCDN'),
-	endpoint = "/findcdn?name=";
+	endpoint = "/findcdn?name=",
+	result = document.querySelectorAll('.result')[0];
 
 function handleResponse(response){
-	var result = document.querySelectorAll('.result')[0],cdn;
-	console.log(response);
-	if(response){
+	var cdn;
+	if(response.length > 0){
 		cdn = findCDN(response);
 		if(cdn){
+			result.style.color = 'green';
 			result.innerHTML = cdn;
 		}else{
-			result.style.color = 'red';
-			result.innerHTML = "Enter Valid Domain Address";
+			handleError();
 		}
 	}
+}
+
+function handleError(err){
+	result.style.color = 'red';
+	result.innerHTML = "Doesn't look like a valid CDN domain. Please check!";
 }
 
 function addEvent(elem, event, fn) {
@@ -27,17 +32,15 @@ function addEvent(elem, event, fn) {
     }
 }
 
-var find = document.getElementById('#find');
+var find = document.getElementById('find');
 
 addEvent(find,'click',onResultsHandler);
 
 function onResultsHandler(e) {
 	co(function *() {
-		var name = endpoint + document.querySelectorAll('.domain')[0].value;
+		var domainName = document.querySelectorAll('.domain')[0].value
+		var name = endpoint + domainName.replace(/.*?:\/\//g, "");;
 		var resp = yield getResult(name);
 		return resp;
-	}).then(handleResponse)
-	.catch(function(err){
-        console.log(err)
-	})
+	}).then(handleResponse, handleError)
 }

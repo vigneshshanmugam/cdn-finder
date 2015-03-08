@@ -17,7 +17,6 @@ app.listen(port, function() {
 
 function *findCDN() {
 	domain = this.request.query.name;
-	console.log(domain);
 	if(domain){
 		var resp = yield new Promise(function(resolve, reject) {
 			dns.resolve(domain, 'CNAME', function(err, address) {
@@ -25,7 +24,6 @@ function *findCDN() {
 				else resolve(address);
 			})
 		});
-		console.log(resp);
 		this.body = resp;
 	}
 

@@ -51,21 +51,25 @@
 	var getResult = __webpack_require__(1),
 	    co = __webpack_require__(3),
 	    findCDN = __webpack_require__(2),
-	    endpoint = "/findcdn?name=";
+	    endpoint = "/findcdn?name=",
+	    result = document.querySelectorAll(".result")[0];
 
 	function handleResponse(response) {
-		var result = document.querySelectorAll(".result")[0],
-		    cdn;
-		console.log(response);
-		if (response) {
+		var cdn;
+		if (response.length > 0) {
 			cdn = findCDN(response);
 			if (cdn) {
+				result.style.color = "green";
 				result.innerHTML = cdn;
 			} else {
-				result.style.color = "red";
-				result.innerHTML = "Enter Valid Domain Address";
+				handleError();
 			}
 		}
+	}
+
+	function handleError(err) {
+		result.style.color = "red";
+		result.innerHTML = "Doesn't look like a valid CDN domain. Please check!";
 	}
 
 	function addEvent(elem, event, fn) {
@@ -78,32 +82,32 @@
 		}
 	}
 
-	var find = document.getElementById("#find");
+	var find = document.getElementById("find");
 
 	addEvent(find, "click", onResultsHandler);
 
 	function onResultsHandler(e) {
 		co(_regeneratorRuntime.mark(function callee$1$0() {
-			var name, resp;
+			var domainName, name, resp;
 			return _regeneratorRuntime.wrap(function callee$1$0$(context$2$0) {
 				while (1) switch (context$2$0.prev = context$2$0.next) {
 					case 0:
-						name = endpoint + document.querySelectorAll(".domain")[0].value;
-						context$2$0.next = 3;
+						domainName = document.querySelectorAll(".domain")[0].value;
+						name = endpoint + domainName.replace(/.*?:\/\//g, "");
+						;
+						context$2$0.next = 5;
 						return getResult(name);
 
-					case 3:
+					case 5:
 						resp = context$2$0.sent;
 						return context$2$0.abrupt("return", resp);
 
-					case 5:
+					case 7:
 					case "end":
 						return context$2$0.stop();
 				}
 			}, callee$1$0, this);
-		})).then(handleResponse)["catch"](function (err) {
-			console.log(err);
-		});
+		})).then(handleResponse, handleError);
 	}
 
 /***/ },
@@ -124,7 +128,11 @@
 			}
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4) {
-					resolve(JSON.parse(xhr.responseText));
+					if (xhr.status === 200) {
+						resolve(JSON.parse(xhr.responseText));
+					} else {
+						reject(xhr.responseText);
+					}
 				}
 			};
 			xhr.open("GET", url, true);

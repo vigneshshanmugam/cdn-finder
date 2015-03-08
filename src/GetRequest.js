@@ -8,7 +8,11 @@ module.exports = function(url) {
         }
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4) {
-				resolve(JSON.parse(xhr.responseText));
+				if(xhr.status === 200){
+					resolve(JSON.parse(xhr.responseText));
+				}else{
+					reject(xhr.responseText);
+				}
 			}
 		}
 		xhr.open('GET', url, true);
