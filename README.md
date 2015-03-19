@@ -8,7 +8,7 @@ CDN Finder written in JavaScript.
 
 ##DEMO
 	
-* https://secure-reef-3496.herokuapp.com/
+* https://cdn-finder.herokuapp.com
 
 ##TODO
  
