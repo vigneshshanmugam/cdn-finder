@@ -38,9 +38,9 @@ addEvent(find,'click',onResultsHandler);
 
 function onResultsHandler(e) {
 	co(function *() {
-		var domainName = document.querySelectorAll('.domain')[0].value
-		var name = endpoint + domainName.replace(/.*?:\/\//g, "");;
+		var domainName = document.querySelectorAll('.domain')[0].value;
+		var name = endpoint + domainName.replace(/.*?:\/\//g, "");
 		var resp = yield getResult(name);
 		return resp;
-	}).then(handleResponse, handleError)
+	}).then(handleResponse, handleError);
 }
