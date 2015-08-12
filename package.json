@@ -4,7 +4,8 @@
   "description": "CDN Finder tool built using Node",
   "main": "server.js",
   "scripts": {
-    "test": "exit 0"
+    "test": "exit 0",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
