@@ -1,6 +1,7 @@
 var CDN_PROVIDER  = [
   [".clients.turbobytes.com", "Turbobytes"],
   [".akamai.net", "Akamai"],
+  [".edgekey.net", "Akamai"],
   [".edgesuite.net","Akamai"],
   [".cdn.bitgravity.com", "Bitgravity"],
   [".akamaiedge.net", "Akamai"],
